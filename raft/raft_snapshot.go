@@ -23,7 +23,7 @@ func (rf *Raft) Snapshot(index int, snapshot []byte) {
 	// Your code here (2D).
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	if rf.lastSSPointIndex >= index || index > rf.commitIndex {
+	if rf.lastSSPointIndex >= index || index < rf.commitIndex {
 		return
 	}
 	tempLog := make([]Entry, 0)
