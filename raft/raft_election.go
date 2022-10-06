@@ -27,7 +27,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		reply.Term = rf.currentTerm
 		return
 	}
-
+	reply.Term = rf.currentTerm
 	//rule 2
 	if args.Term > rf.currentTerm {
 		rf.currentTerm = args.Term
@@ -145,7 +145,7 @@ func (rf *Raft) changeState(toChange int, resetTime bool) {
 	}
 
 	if toChange == TO_LEADER {
-		rf.state = TO_LEADER
+		rf.state = LEADER
 		rf.votedFor = -1
 		rf.getVoteNums = 0
 		rf.persist()
